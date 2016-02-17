@@ -23,6 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 configuration.server = "https://instagramparsegelei.herokuapp.com/parse"
             })
         )
+        UITabBar.appearance().barTintColor = UIColor.blackColor()
+        UITabBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().barTintColor = UIColor.blackColor()
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().barStyle = UIBarStyle.Black
         // Override point for customization after application launch.
         return true
     }
