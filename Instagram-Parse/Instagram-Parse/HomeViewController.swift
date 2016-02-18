@@ -105,17 +105,40 @@ class HomeViewController: UIViewController,UITableViewDataSource,UITableViewDele
         let media = userMedia.objectForKey("media") as! PFFile
         let commentsCount = userMedia.objectForKey("commentsCount") as! NSNumber
         let descriptionText = userMedia.objectForKey("caption") as! String
+        let updatedAt = userMedia.updatedAt
         cell!.userImage.image = UIImage(named: "icon")
+        let author = userMedia.objectForKey("author") as! PFUser
         media.getDataInBackgroundWithBlock({ (data:NSData?, error:NSError?) -> Void in
             if data != nil {
                 cell!.userImage.image = UIImage(data: data!)
             }
         })
-        
-        cell!.likesLabel.text = "#Likes: \(likes.integerValue.description)"
+        cell!.timeAgoLabel.text = updatedAt!.dateTimeAgo()
+        cell!.userNameLabel.text = author.username
+        cell!.likesLabel.text = "\(likes.integerValue.description)"
         cell!.commentsCountLabel.text = "#Comments: \(commentsCount.integerValue.description)"
         cell!.detailTextView.text = descriptionText
+        cell!.likesButton.addTarget(self, action: "liked:", forControlEvents: UIControlEvents.TouchUpInside)
+        cell!.likesButton.tag = indexPath.row
         return cell!
+    }
+    func liked(button:UIButton){
+        let userMedia = self.data[button.tag]
+        let likes = userMedia.objectForKey("likesCount") as! NSNumber
+        let finalLikes = likes.integerValue + 1
+        userMedia.setValue(finalLikes, forKey: "likesCount")
+        self.tableView.reloadData()
+        Tool.showProgressHUD("Like a photo")
+        userMedia.saveInBackgroundWithBlock { (success:Bool, error:NSError?) -> Void in
+            Tool.dismissHUD()
+            if success {
+                
+            }
+            if error != nil {
+                Tool.showErrorHUD("Like failed")
+            }
+        }
+        
     }
     
     /*

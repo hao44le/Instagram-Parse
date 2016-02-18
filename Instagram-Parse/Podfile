@@ -1,4 +1,3 @@
 use_frameworks!
 pod 'Parse'
 pod 'MJRefresh'
-pod 'SDWebImage'

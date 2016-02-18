@@ -182,7 +182,7 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7m0-6X-QuL">
                                 <rect key="frame" x="0.0" y="28" width="600" height="196"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="196" id="1z0-vN-uJM"/>
                                 </constraints>
@@ -200,10 +200,11 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="syO-g1-qEe">
-                                <rect key="frame" x="268" y="483" width="65" height="30"/>
+                                <rect key="frame" x="200" y="493" width="200" height="36"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="PS1-cE-8cS"/>
-                                    <constraint firstAttribute="width" constant="65" id="cVf-ZB-CsI"/>
+                                    <constraint firstAttribute="height" constant="36" id="PS1-cE-8cS"/>
+                                    <constraint firstAttribute="width" constant="200" id="cVf-ZB-CsI"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Submit">
@@ -213,14 +214,34 @@
                                     <action selector="submitClicked:" destination="lB1-D3-PnM" eventType="touchUpInside" id="bmM-20-E2r"/>
                                 </connections>
                             </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UZn-D5-ASX">
+                                <rect key="frame" x="30" y="352" width="540" height="2"/>
+                                <color key="progressTintColor" red="0.25098040700000002" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="trackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WCR-LP-7EC">
+                                <rect key="frame" x="279" y="368" width="42" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="O2e-EH-iBC"/>
+                                    <constraint firstAttribute="width" constant="42" id="h8C-DR-vHh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="hpa-ff-49M" firstAttribute="centerX" secondItem="syO-g1-qEe" secondAttribute="centerX" id="ANq-IH-mZW"/>
+                            <constraint firstItem="UZn-D5-ASX" firstAttribute="leading" secondItem="hpa-ff-49M" secondAttribute="leading" id="BYa-FM-U7x"/>
+                            <constraint firstItem="UZn-D5-ASX" firstAttribute="top" secondItem="hpa-ff-49M" secondAttribute="bottom" constant="70" id="CsV-hO-Xf1"/>
                             <constraint firstItem="7m0-6X-QuL" firstAttribute="top" secondItem="JvJ-0z-qO1" secondAttribute="bottom" constant="8" symbolic="YES" id="J7Q-R1-wRY"/>
+                            <constraint firstItem="WCR-LP-7EC" firstAttribute="centerX" secondItem="UZn-D5-ASX" secondAttribute="centerX" id="SM5-hK-pd2"/>
                             <constraint firstItem="hpa-ff-49M" firstAttribute="top" secondItem="7m0-6X-QuL" secondAttribute="bottom" constant="28" id="Uwj-RR-JPr"/>
-                            <constraint firstItem="7rW-lg-54X" firstAttribute="top" secondItem="syO-g1-qEe" secondAttribute="bottom" constant="38" id="a6k-VY-2nL"/>
+                            <constraint firstItem="7rW-lg-54X" firstAttribute="top" secondItem="syO-g1-qEe" secondAttribute="bottom" constant="22" id="a6k-VY-2nL"/>
+                            <constraint firstItem="UZn-D5-ASX" firstAttribute="trailing" secondItem="hpa-ff-49M" secondAttribute="trailing" id="fp8-N8-uL5"/>
                             <constraint firstItem="hpa-ff-49M" firstAttribute="leading" secondItem="0ho-qD-e1N" secondAttribute="leadingMargin" constant="10" id="fqe-NO-sQc"/>
+                            <constraint firstItem="WCR-LP-7EC" firstAttribute="top" secondItem="UZn-D5-ASX" secondAttribute="bottom" constant="14" id="g28-eE-Ljy"/>
                             <constraint firstAttribute="trailing" secondItem="7m0-6X-QuL" secondAttribute="trailing" id="guF-yS-7qX"/>
                             <constraint firstItem="7m0-6X-QuL" firstAttribute="leading" secondItem="0ho-qD-e1N" secondAttribute="leading" id="nxe-S6-pWQ"/>
                             <constraint firstItem="7m0-6X-QuL" firstAttribute="centerX" secondItem="hpa-ff-49M" secondAttribute="centerX" id="wvY-dH-w3m"/>
@@ -228,6 +249,9 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Post" image="post" id="GoZ-DF-Yo5"/>
                     <connections>
+                        <outlet property="imageUploadProgressView" destination="UZn-D5-ASX" id="TMH-n2-fSd"/>
+                        <outlet property="progressLabel" destination="WCR-LP-7EC" id="xLe-ar-uu8"/>
+                        <outlet property="submitButton" destination="syO-g1-qEe" id="MLg-EF-Xu8"/>
                         <outlet property="tabButton" destination="7m0-6X-QuL" id="SaW-Vx-yox"/>
                         <outlet property="textField" destination="hpa-ff-49M" id="mMR-2y-z5H"/>
                     </connections>
@@ -247,9 +271,39 @@
                     <view key="view" contentMode="scaleToFill" id="gSL-Ck-QKh">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PKl-Yl-Yf7">
+                                <rect key="frame" x="200" y="493" width="200" height="36"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="2lm-LX-Iux"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Logout">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="logoutButtonClicked:" destination="lFp-Aw-kd6" eventType="touchUpInside" id="bQQ-o6-mhW"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.079140851021488851" green="0.04885828281221332" blue="0.1235274869109948" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="PKl-Yl-Yf7" firstAttribute="centerX" secondItem="gSL-Ck-QKh" secondAttribute="centerX" id="YOM-xg-NO2"/>
+                            <constraint firstItem="119-HF-q1w" firstAttribute="top" secondItem="PKl-Yl-Yf7" secondAttribute="bottom" constant="22" id="raA-fy-pVO"/>
+                            <constraint firstItem="PKl-Yl-Yf7" firstAttribute="top" secondItem="AiJ-S9-02C" secondAttribute="bottom" constant="479" id="zpe-e4-2Rw"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="zpe-e4-2Rw"/>
+                            </mask>
+                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Logout" image="logout" id="Zlt-E9-d6H"/>
+                    <connections>
+                        <outlet property="logoutButton" destination="PKl-Yl-Yf7" id="ar1-0Z-hIa"/>
+                        <segue destination="BYZ-38-t0r" kind="show" id="SVW-NH-dYV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jSw-pp-9Bb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

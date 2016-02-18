@@ -26,7 +26,7 @@ class ViewController: UIViewController {
                     Tool.showErrorHUD("error occured, try again.")
                 } else {
                     print("Login succesfully!")
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self.performSegueWithIdentifier("toMain", sender: self)
                 }
             })
         }
@@ -35,6 +35,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.passwordTextfield.secureTextEntry = true
+        
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
     override func viewDidAppear(animated: Bool) {

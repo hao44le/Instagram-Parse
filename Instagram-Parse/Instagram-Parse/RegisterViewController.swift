@@ -52,7 +52,7 @@ class RegisterViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.passwordTextfield.secureTextEntry = true
         // Do any additional setup after loading the view.
     }
 

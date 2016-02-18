@@ -8,8 +8,11 @@
 
 import UIKit
 
-class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate, NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate  {
 
+    @IBOutlet weak var progressLabel: UILabel!
+    @IBOutlet weak var imageUploadProgressView: UIProgressView!
+    @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var tabButton: UIButton!
     @IBAction func submitClicked(sender: AnyObject) {
         if self.resizedImage == nil {
@@ -50,6 +53,8 @@ class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINav
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = UIColor(red: 45/255, green: 15/255, blue: 62/255, alpha: 1)
+        self.submitButton.layer.cornerRadius = self.submitButton.frame.height / 2
 
         // Do any additional setup after loading the view.
     }
@@ -60,6 +65,7 @@ class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINav
 //            let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
             resizedImage = Tool.resize(originalImage, newSize: CGSizeMake(UIScreen.mainScreen().bounds.width, 80))
             self.tabButton.setBackgroundImage(originalImage, forState: UIControlState.Normal)
+            self.tabButton.setTitle("", forState: UIControlState.Normal)
             
     }
 
@@ -67,7 +73,30 @@ class PostViewController: UIViewController,UIImagePickerControllerDelegate,UINav
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
+    }
+    func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?)
+    {
+        Tool.showErrorHUD(error!.localizedDescription)
+        self.submitButton.enabled = true
+        
+    }
     
+    
+    func URLSession(session: NSURLSession, task: NSURLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64)
+    {
+        let uploadProgress:Float = Float(totalBytesSent) / Float(totalBytesExpectedToSend)
+        imageUploadProgressView.progress = uploadProgress
+        let progressPercent = Int(uploadProgress*100)
+        progressLabel.text = "\(progressPercent)%"
+        
+    }
+    
+    func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveResponse response: NSURLResponse, completionHandler: (NSURLSessionResponseDisposition) -> Void)
+    {
+        self.submitButton.enabled = true
+    }
 
     /*
     // MARK: - Navigation
